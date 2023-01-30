@@ -3,9 +3,11 @@
 #include "utils.h"
 #include "PayloadParser.h"
 #include "BWifi.h"
-
+#include <FastLED.h>  // Viper 27.01.23
 
 int pollTick = 0;
+
+extern CRGB led[1];  // Viper 27.01.23
 
 struct command_handle {
   uint8_t page;
@@ -25,6 +27,8 @@ class MyClientCallback : public BLEClientCallbacks {
   void onDisconnect(BLEClient* pclient) {
     connected = false;
     Serial.println(F("onDisconnect"));
+    led[0] = CRGB::Blue;   // Viper 27.01.23
+    FastLED.show();             // Viper 27.01.23
     #ifdef RELAISMODE
       #ifdef DEBUG
         Serial.println(F("deactivate relais contact"));
@@ -198,6 +202,8 @@ void handleBluetooth(){
   if (doConnect == true) {
     if (connectToServer()) {
       Serial.println(F("We are now connected to the Bluetti BLE Server."));
+      led[0] = CRGB::Blue;   // Viper 27.01.23
+      FastLED.show();             // Viper 27.01.23
     } else {
       Serial.println(F("We have failed to connect to the server; there is nothing more we will do."));
     }

@@ -7,11 +7,15 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 
+#include <FastLED.h>  // Viper 27.01.23
+
 WiFiClient mqttClient;  
 PubSubClient client(mqttClient);
 int publishErrorCount = 0;
 unsigned long lastMQTTMessage = 0;
 unsigned long previousDeviceStatePublish = 0;
+
+extern CRGB led[1];  // Viper 27.01.23
 
 String map_field_name(enum field_names f_name){
    switch(f_name) {
@@ -145,10 +149,10 @@ void publishTopic(enum field_names field_name, String value){
   }
   else{
     AddtoMsgView(String(lastMQTTMessage) + ": " + map_field_name(field_name) + " -> " + value);
+    led[0] = CRGB::Green;  // Viper 27.01.23
+    FastLED.show();             // Viper 27.01.23
   }
   
-  
- 
 }
 
 void publishDeviceState(){
@@ -188,6 +192,8 @@ void initMQTT(){
     if (connect_result) {
         
       Serial.println(F("Connected to MQTT Server... "));
+      led[0] = CRGB::Magenta; // Viper 27.01.23
+      FastLED.show();             // Viper 27.01.23
 
       // subscribe to topics for commands
       for (int i=0; i< sizeof(bluetti_device_command)/sizeof(device_field_data_t); i++){
@@ -213,6 +219,8 @@ void handleMQTT(){
 
     if (!isMQTTconnected() && publishErrorCount > 5){
       Serial.println(F("MQTT lost connection, try to reconnect"));
+      led[0] = CRGB::Magenta; // Viper 27.01.23
+      FastLED.show();             // Viper 27.01.23
       client.disconnect();
       lastMQTTMessage=0;
       previousDeviceStatePublish=0;

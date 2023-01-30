@@ -9,6 +9,7 @@
 #include <AsyncTCP.h> // https://github.com/me-no-dev/AsyncTCP/archive/master.zip
 #include <ESPmDNS.h>
 #include <AsyncElegantOTA.h>
+#include <FastLED.h>  // Viper 27.01.23
 
 AsyncWebServer server(80);
 AsyncEventSource events("/events");
@@ -22,6 +23,8 @@ bool shouldSaveConfig = false;
 char mqtt_server[40] = "127.0.0.1";
 char mqtt_port[6]  = "1883";
 char bluetti_device_id[40] = "e.g. ACXXXYYYYYYYY";
+
+extern CRGB led[1];  // Viper 27.01.23
 
 void saveConfigCallback () {
   shouldSaveConfig = true;
@@ -114,6 +117,8 @@ void initBWifi(bool resetWifi){
   Serial.println(F(""));
   Serial.println(F("IP address: "));
   Serial.println(WiFi.localIP());
+  led[0] = CRGB::Yellow; // Viper 27.01.23
+  FastLED.show();             // Viper 27.01.23
 
   if (MDNS.begin(DEVICE_NAME)) {
     Serial.println(F("MDNS responder started"));

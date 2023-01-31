@@ -16,7 +16,6 @@
 #define RELAIS_PIN 22
 #define RELAIS_LOW LOW
 #define RELAIS_HIGH HIGH
-#define LED_PIN 27  // used GPIO Pin for LED - 27 is used by M5 Stack Atom Lite
 
 #define MAX_DISCONNECTED_TIME_UNTIL_REBOOT 5 //device will reboot when wlan/BT/MQTT is not connectet within x Minutes
 #define SLEEP_TIME_ON_BT_NOT_AVAIL 2 //device will sleep x minutes if restarted is triggered by bluetooth error
@@ -29,5 +28,13 @@
   #define BLUETTI_TYPE BLUETTI_AC200M  //default: BLUETTI_AC300
 #endif
 
+#define USE_FASTLED true  // use FastLED library to control a RGB LED, like on the M5Stack Atom Lite
+#define LED_PIN 27  // used GPIO Pin for RGB LED - 27 is used by M5 Stack Atom Lite
+// LED colors definition, on startup you see the colors for successful connection of each. If you see the color for ALL_WORKING and the color then switches to another one you have a problem with this one.
+// The colors values are from CRGB definition: http://fastled.io/docs/3.1/group___pixeltypes.html#gaeb40a08b7cb90c1e21bd408261558b99
+#define LED_COLOR_WIFI Yellow
+#define LED_COLOR_MQTT Magenta
+#define LED_COLOR_BLUETOOTH Blue
+#define LED_COLOR_ALL_WORKING Green
 
 #endif

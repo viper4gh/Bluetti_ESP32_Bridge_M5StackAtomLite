@@ -3,25 +3,29 @@
 #include "MQTT.h"
 #include "config.h"
 
-#include <FastLED.h>  // Viper 26.01.23
+// Viper 31.01.23
+#if USE_FASTLED
+  #include <FastLED.h>
+  CRGB led[1];  // LED Array with on LED
+#endif
 
 unsigned long lastTime1 = 0;
 unsigned long timerDelay1 = 3000;
 
 
-CRGB led[1];  // LED Array with on LED - Viper 26.01.23
-
 void setup() {
   Serial.begin(115200);
   // Viper 26.01.23
-  FastLED.addLeds<NEOPIXEL, LED_PIN>(led, 1);
-  FastLED.clear();
-  FastLED.setBrightness(30);
-  led[0] = CRGB::Black;
-  FastLED.show();
-  delay(500);
-  led[0] = CRGB::Red;
-  FastLED.show();
+  #if USE_FASTLED
+    FastLED.addLeds<NEOPIXEL, LED_PIN>(led, 1);
+    FastLED.clear();
+    FastLED.setBrightness(30);
+    led[0] = CRGB::Black;
+    FastLED.show();
+    delay(500);
+    led[0] = CRGB::Red;
+    FastLED.show();
+  #endif
 
   #ifdef RELAISMODE
     pinMode(RELAIS_PIN, OUTPUT);

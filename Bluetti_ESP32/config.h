@@ -28,7 +28,7 @@
   #define BLUETTI_TYPE BLUETTI_AC200M  //default: BLUETTI_AC300
 #endif
 
-#define USE_FASTLED true  // use FastLED library to control a RGB LED, like on the M5Stack Atom Lite
+#define USE_FASTLED false  // use FastLED library to control a RGB LED, like on the M5Stack Atom Lite, if set to true you have to add the FastLED lib to the lib deps
 #define LED_PIN 27  // used GPIO Pin for RGB LED - 27 is used by M5 Stack Atom Lite
 // LED colors definition, on startup you see the colors for successful connection of each. If you see the color for ALL_WORKING and the color then switches to another one you have a problem with this one.
 // The colors values are from CRGB definition: http://fastled.io/docs/3.1/group___pixeltypes.html#gaeb40a08b7cb90c1e21bd408261558b99

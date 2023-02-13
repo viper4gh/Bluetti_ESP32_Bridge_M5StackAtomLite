@@ -226,6 +226,14 @@ void handleMQTT(){
       publishDeviceState();
     }
 
+    // Viper 02.03.23
+    #if USE_FASTLED
+      if ((millis() - lastMQTTMessage) > (LED_MAX_DISCONNECTED_TIME * 1000)){
+        led[0] = CRGB::LED_COLOR_LAST_MESSAGE;
+        FastLED.show();
+      }
+    #endif
+
     if (!isMQTTconnected() && publishErrorCount > 5){
       Serial.println(F("MQTT lost connection, try to reconnect"));
       // Viper 31.01.23

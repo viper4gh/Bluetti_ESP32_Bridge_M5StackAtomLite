@@ -231,6 +231,14 @@ void handleBluetooth(){
     #endif
   }
 
+  // Viper 02.03.23
+    #if USE_FASTLED
+      if ((millis() - lastBTMessage) > (LED_MAX_DISCONNECTED_TIME * 1000)){
+        led[0] = CRGB::LED_COLOR_LAST_MESSAGE;
+        FastLED.show();
+      }
+    #endif
+
   if (connected) {
 
     // poll for device state

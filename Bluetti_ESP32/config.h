@@ -26,7 +26,7 @@
 #define MSG_VIEWER_REFRESH_CYCLE 5 //refresh time for website data in seconds
 
 #ifndef BLUETTI_TYPE
-#define BLUETTI_TYPE AC200M  //default: AC300
+#define BLUETTI_TYPE AC200M
 #endif
 
 #define USE_FASTLED false  // use FastLED library to control a RGB LED, like on the M5Stack Atom Lite, if set to true you have to add the FastLED lib to the lib deps
